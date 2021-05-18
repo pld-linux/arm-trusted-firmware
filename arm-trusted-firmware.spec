@@ -1,11 +1,12 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.4
+Version:	2.5
 Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
-# Source0-md5:	19a6d208f613227415654db38cf88c81
+# Source0-md5:	590ae90bccde7ce8b7f5963b25500bfd
+Patch0:		rk3399-dram.patch
 URL:		https://developer.arm.com/tools-and-software/open-source-software/firmware/trusted-firmware
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
@@ -39,13 +40,17 @@ interest to users.
 
 %prep
 %setup -q -n trusted-firmware-a-%{version}
-
-# Fix the name of the cross compile for the rk3399 Cortex-M0 PMU
-sed -i 's/arm-none-eabi-/arm-linux-gnueabi-/' plat/rockchip/rk3399/drivers/m0/Makefile
+%patch0 -p1
 
 %build
 for soc in rk3399; do
-%{__make} HOSTCC="%{__cc} %{rpmcflags}" CROSS_COMPILE="" PLAT="$soc" bl31
+%{__make} \
+	V=1 \
+	HOSTCC="%{__cc} %{rpmcflags}" \
+	CROSS_COMPILE="" \
+	M0_CROSS_COMPILE="arm-linux-gnueabi-" \
+	PLAT="$soc" \
+	bl31
 done
 
 %install
