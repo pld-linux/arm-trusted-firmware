@@ -1,7 +1,7 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
 Version:	2.5
-Release:	1
+Release:	2
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
@@ -52,10 +52,15 @@ for soc in rk3399; do
 	PLAT="$soc" \
 	bl31
 done
+%{__make} -C tools/fiptool \
+	V=1 \
+	HOSTCC="%{__cc}" \
+	HOSTCCFLAGS="%{rpmcflags}" \
+	CPPFLAGS="%{rpmcppflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
 
 for soc in rk3399; do
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
@@ -66,10 +71,13 @@ install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
  done
 done
 
+cp -p tools/fiptool/fiptool $RPM_BUILD_ROOT%{_bindir}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files -n arm-trusted-firmware-armv8
 %defattr(644,root,root,755)
 %doc readme.rst
+%attr(755,root,root) %{_bindir}/fiptool
 %{_datadir}/%{name}
