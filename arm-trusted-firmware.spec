@@ -1,12 +1,11 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.5
-Release:	2
+Version:	2.6
+Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
-# Source0-md5:	590ae90bccde7ce8b7f5963b25500bfd
-Patch0:		rk3399-dram.patch
+# Source0-md5:	990073a9b7fde7bb0bc64186687aa779
 URL:		https://developer.arm.com/tools-and-software/open-source-software/firmware/trusted-firmware
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
@@ -40,7 +39,6 @@ interest to users.
 
 %prep
 %setup -q -n trusted-firmware-a-%{version}
-%patch0 -p1
 
 %build
 for soc in rk3399; do
