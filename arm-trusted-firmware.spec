@@ -1,16 +1,20 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.7.0
+Version:	2.8.0
 Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
-# Source0-md5:	027614c144094b203e8e296ab7b076fe
+# Source0-md5:	4834cc9dc6b0188ab65df45a74b3bc9d
 URL:		https://developer.arm.com/tools-and-software/open-source-software/firmware/trusted-firmware
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
+BuildRequires:	openssl-tools
+BuildRequires:	rpmbuild(macros) >= 1.750
 ExclusiveArch:	aarch64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		binutils_ver	%(rpm -q --qf=%%{V} binutils)
 
 %description
 ARM Trusted firmware is a reference implementation of secure world
@@ -41,6 +45,9 @@ interest to users.
 %setup -q -n trusted-firmware-a-%{version}
 
 %build
+%if %{_ver_ge "%binutils_ver" "2.39"}
+export TF_LDFLAGS="--no-warn-rwx-segments"
+%endif
 for soc in rk3399; do
 %{__make} \
 	V=1 \
