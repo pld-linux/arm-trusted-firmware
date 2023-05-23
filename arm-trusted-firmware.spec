@@ -1,11 +1,11 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.8.0
+Version:	2.9.0
 Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
-# Source0-md5:	4834cc9dc6b0188ab65df45a74b3bc9d
+# Source0-md5:	4fca773334e6bdafe48dc8bd32dc12ea
 URL:		https://developer.arm.com/tools-and-software/open-source-software/firmware/trusted-firmware
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
