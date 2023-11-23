@@ -1,11 +1,11 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.9.0
+Version:	2.10.0
 Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
-# Source0-md5:	4fca773334e6bdafe48dc8bd32dc12ea
+# Source0-md5:	a262a00bae874ce7cb355d30fbee6767
 URL:		https://developer.arm.com/tools-and-software/open-source-software/firmware/trusted-firmware
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
@@ -68,12 +68,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
 
 for soc in rk3399; do
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
- for file in bl31/bl31.elf m0/rk3399m0.bin m0/rk3399m0.elf; do
-  if [ -f build/$soc/release/$file ]; then
-    cp -p build/$soc/release/$file $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
-  fi
- done
+	install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
+	for file in bl31/bl31.elf m0/rk3399m0.bin m0/rk3399m0.elf; do
+		if [ -f build/$soc/release/$file ]; then
+			cp -p build/$soc/release/$file $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
+		fi
+	done
 done
 
 cp -p tools/fiptool/fiptool $RPM_BUILD_ROOT%{_bindir}
