@@ -14,8 +14,6 @@ BuildRequires:	rpmbuild(macros) >= 1.750
 ExclusiveArch:	aarch64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		binutils_ver	%(rpm -q --qf=%%{V} binutils)
-
 %description
 ARM Trusted firmware is a reference implementation of secure world
 software for ARMv8-A including Exception Level 3 (EL3) software. It
@@ -45,9 +43,6 @@ interest to users.
 %setup -q -n trusted-firmware-a-%{version}
 
 %build
-%if %{_ver_ge "%binutils_ver" "2.39"}
-export TF_LDFLAGS="--no-warn-rwx-segments"
-%endif
 for soc in rk3399; do
 %{__make} \
 	V=1 \
