@@ -1,14 +1,15 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.10.0
+Version:	2.11.0
 Release:	1
 License:	BSD
 Group:		Base/Kernel
-Source0:	https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-%{version}.tar.gz
-# Source0-md5:	a262a00bae874ce7cb355d30fbee6767
-URL:		https://developer.arm.com/tools-and-software/open-source-software/firmware/trusted-firmware
+Source0:	https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	67963a1a76ad9533660c2ae61992df13
+URL:		https://developer.arm.com/Tools%20and%20Software/Trusted%20Firmware-A
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
+BuildRequires:	libfdt-devel
 BuildRequires:	openssl-tools
 BuildRequires:	rpmbuild(macros) >= 1.750
 ExclusiveArch:	aarch64
@@ -40,13 +41,14 @@ bootloaders such as u-boot. As such the binaries aren't of general
 interest to users.
 
 %prep
-%setup -q -n trusted-firmware-a-%{version}
+%setup -q
 
 %build
 for soc in rk3399; do
 %{__make} \
 	V=1 \
-	HOSTCC="%{__cc} %{rpmcflags}" \
+	CC="%{__cc}" \
+	AR="%{__ar}" \
 	CROSS_COMPILE="" \
 	M0_CROSS_COMPILE="arm-linux-gnueabi-" \
 	PLAT="$soc" \
