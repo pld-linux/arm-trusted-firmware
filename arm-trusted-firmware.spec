@@ -1,7 +1,7 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
 Version:	2.12.0
-Release:	1
+Release:	2
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -45,7 +45,7 @@ interest to users.
 %setup -q
 
 %build
-for soc in rk3399; do
+for soc in rk3399 rk3588; do
 %{__make} \
 	V=1 \
 	CC="%{__cc}" \
@@ -65,7 +65,7 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
 
-for soc in rk3399; do
+for soc in rk3399 rk3588; do
 	install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$soc
 	for file in bl31/bl31.elf m0/rk3399m0.bin m0/rk3399m0.elf; do
 		if [ -f build/$soc/release/$file ]; then
