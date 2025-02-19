@@ -10,6 +10,7 @@ URL:		https://developer.arm.com/Tools%20and%20Software/Trusted%20Firmware-A
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
 BuildRequires:	libfdt-devel
+BuildRequires:	openssl-devel
 BuildRequires:	openssl-tools
 BuildRequires:	rpmbuild(macros) >= 1.750
 ExclusiveArch:	aarch64
