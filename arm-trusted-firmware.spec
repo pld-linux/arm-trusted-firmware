@@ -1,11 +1,11 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.12.0
-Release:	2
+Version:	2.12.1
+Release:	1
 License:	BSD
 Group:		Base/Kernel
-Source0:	https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	97d8a3775e69b7c22af230b130787ad1
+Source0:	https://github.com/ARM-software/arm-trusted-firmware/archive/lts-v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	9eb8111122fd35b7be00c21a22270e7e
 URL:		https://developer.arm.com/Tools%20and%20Software/Trusted%20Firmware-A
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
@@ -42,7 +42,7 @@ bootloaders such as u-boot. As such the binaries aren't of general
 interest to users.
 
 %prep
-%setup -q
+%setup -q -n %{name}-lts-v%{version}
 
 %build
 for soc in rk3399 rk3588; do
