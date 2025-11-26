@@ -1,11 +1,11 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.13.0
+Version:	2.14.0
 Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	a3c86e1dd367d4aa0428d786004ab913
+# Source0-md5:	2ee95f11c4291de7cf8957bbf6156688
 URL:		https://developer.arm.com/Tools%20and%20Software/Trusted%20Firmware-A
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
@@ -55,8 +55,10 @@ for soc in rk3399 rk3588; do
 	PLAT="$soc" \
 	bl31
 done
-%{__make} -C tools/fiptool \
+%{__make} build/tools/fiptool/fiptool \
+	BUILD_PLAT=build \
 	V=1 \
+	CC="%{__cc}" \
 	HOSTCC="%{__cc}" \
 	HOSTCCFLAGS="%{rpmcflags}" \
 	CPPFLAGS="%{rpmcppflags}"
@@ -74,7 +76,7 @@ for soc in rk3399 rk3588; do
 	done
 done
 
-cp -p tools/fiptool/fiptool $RPM_BUILD_ROOT%{_bindir}
+cp -p build/tools/fiptool/fiptool $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
