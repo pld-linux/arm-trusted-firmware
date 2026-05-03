@@ -1,11 +1,11 @@
 Summary:	ARM Trusted Firmware
 Name:		arm-trusted-firmware
-Version:	2.14.1
+Version:	2.14.2
 Release:	1
 License:	BSD
 Group:		Base/Kernel
 Source0:	https://github.com/ARM-software/arm-trusted-firmware/archive/lts-v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	db2e5a12743f3aecbc81dd3d04cee90d
+# Source0-md5:	8be48ba562d8c64ded14a0698ad722ee
 URL:		https://developer.arm.com/Tools%20and%20Software/Trusted%20Firmware-A
 BuildRequires:	crossarm-gcc
 BuildRequires:	dtc
